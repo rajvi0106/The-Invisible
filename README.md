@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The Invisible 🕸️
 
-## Getting Started
+The Invisible is a community-driven networking platform specifically designed for the IIITDMJ community. It visualizes the "unseen" connections between students and faculty across the entire college, allowing users to find peers with specific technical skills and contact them for collaborations, projects, or mentorship.
 
-First, run the development server:
+##Purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+In a large campus like IIITDMJ, talent is often siloed within branches or batches. The Invisible breaks these barriers by:
+
+    Skill Discovery: Finding that one person in a different batch who knows Rust or Figma.
+
+    Peer Networking: Visualizing how your skills bridge the gap between different technical clusters.
+
+    College-Wide Access: A unified directory to find and contact peers from across the campus based on what they can build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+    Frontend: Next.js (App Router), Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    Visualization: D3.js via react-force-graph-2d
 
-## Learn More
+    Backend/Database: Supabase (PostgreSQL)
 
-To learn more about Next.js, take a look at the following resources:
+    Icons: Lucide-React
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ ##Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ 1. Clone & Install
+    git clone https://github.com/rajvi0106/The-Invisible.git
+    cd The-Invisible
+    npm install   
+ 2. Environment Setup
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Add your Supabase credentials to a .env.local file:
+   NEXT_PUBLIC_SUPABASE_URL=your_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+ 3. Run Development
+    npm run dev
