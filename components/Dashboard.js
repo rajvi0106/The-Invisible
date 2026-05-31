@@ -79,15 +79,26 @@ export default function Dashboard({ initialData }) {
       setIsSubmitting(false);
       return;
     }
+    // get existing data 
+    const { data: existing } = await supabase
+    .from('profiles')
+    .select('skills_with_levels')
+    .eq('id', myId)
+    .single();
+
+    const existingSkills = existing?.skills_with_levels || {};
+    const newSkills = formData.skills.reduce((acc, s) => ({ ...acc, [s]: 'Beginner' }), {});
+    const mergedSkills = { ...newSkills, ...existingSkills };
+
     const { data, error } = await supabase
-      .from('users') // Changed to 'users' to match your previous setup
+      .from('profiles') // Changed to 'users' to match your previous setup
       .upsert([{
         id: myId, // If logged in, update their specific record
         full_name: formData.full_name,
         roll_no: formData.roll_no,
         batch_year: formData.batch_year,
         bio: formData.bio,
-        skills_with_levels: formData.skills.reduce((acc, s) => ({ ...acc, [s]: 'Beginner' }), {})
+        skills_with_levels: mergedSkills
       }])
       .select()
       .single();
@@ -102,10 +113,28 @@ export default function Dashboard({ initialData }) {
         val: 15
       };
 
-      setNetworkData(prev => ({
-        nodes: [...prev.nodes.filter(n => n.id !== data.id), newNode],
-        links: [...prev.links, { source: newNode.id, target: prev.nodes[0]?.id || newNode.id }]
-      }));
+      const buildLinks = (nodes) => {
+        const links = [];
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const skillsA = nodes[i].skills || [];
+            const skillsB = nodes[j].skills || [];
+            const hasSharedSkill = skillsA.some(s => skillsB.includes(s));
+            if (hasSharedSkill) {
+              links.push({ source: nodes[i].id, target: nodes[j].id });
+            }
+          }
+        }
+        return links;
+      };
+
+      setNetworkData(prev => {
+        const updatedNodes = [...prev.nodes.filter(n => n.id !== data.id), newNode];
+        return {
+          nodes: updatedNodes,
+          links: buildLinks(updatedNodes)
+        };
+      });
 
       setSuccess(true);
       setTimeout(() => {

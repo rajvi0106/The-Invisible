@@ -16,7 +16,7 @@ export default function UserProfile({ params }) {
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase
-        .from('users')
+        .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
@@ -48,7 +48,7 @@ export default function UserProfile({ params }) {
     };
     
     const { error } = await supabase
-      .from('users')
+      .from('profiles')
       .update({ skills_with_levels: updatedSkills })
       .eq('id', userData.id);
 
@@ -64,7 +64,7 @@ export default function UserProfile({ params }) {
     delete updatedSkills[skillName];
 
     const { error } = await supabase
-      .from('users')
+      .from('profiles')
       .update({ skills_with_levels: updatedSkills })
       .eq('id', userData.id);
 

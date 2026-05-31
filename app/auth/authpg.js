@@ -27,7 +27,7 @@ export default function AuthPage() {
       if (error) alert(error.message);
       else if (data.user) {
         // 2. Create the profile in our 'users' table
-        await supabase.from('users').insert([{
+        await supabase.from('profiles').insert([{
           id: data.user.id, // Link Auth ID to our Users table
           full_name: fullName,
           email: email,

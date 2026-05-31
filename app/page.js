@@ -6,7 +6,7 @@ export default async function Home() {
   
   // 1. Fetch real data from Supabase
   // Change 'profiles' to 'users' if that's what your table is named
-  const { data: dbProfiles } = await supabase.from('users').select('*');
+  const { data: dbProfiles } = await supabase.from('profiles').select('*');
   
   // 2. Mock Data for the Demo
   const mockNodes = [
@@ -53,9 +53,22 @@ export default async function Home() {
   });
 
   // 5. Initial Links
-  const links = [
-    { source: 'm1', target: 'm2' },
-  ];
+  const buildLinks = (nodes) => {
+    const links = [];
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const skillsA = nodes[i].skills || [];
+        const skillsB = nodes[j].skills || [];
+        const hasSharedSkill = skillsA.some(s => skillsB.includes(s));
+        if (hasSharedSkill) {
+          links.push({ source: nodes[i].id, target: nodes[j].id });
+        }
+      }
+    }
+    return links;
+  };
+
+  const links = buildLinks(nodes);
 
   const initialData = { nodes, links };
 
