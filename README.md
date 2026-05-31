@@ -1,8 +1,8 @@
-The Invisible 🕸️
+**The Invisible 🕸️**
 
 The Invisible is a community-driven networking platform specifically designed for the IIITDMJ community. It visualizes the "unseen" connections between students and faculty across the entire college, allowing users to find peers with specific technical skills and contact them for collaborations, projects, or mentorship.
 
-🚀 Purpose
+**🚀 Purpose**
 
 1.In a large campus like IIITDMJ, talent is often siloed within branches or batches. The Invisible breaks these barriers by:
 
@@ -12,7 +12,7 @@ The Invisible is a community-driven networking platform specifically designed fo
 
 4.College-Wide Access: A unified directory to find and contact peers from across the campus based on what they can build.
 
-🛠️ Tech Stack
+**🛠️ Tech Stack**
 
 Frontend: Next.js (App Router), Tailwind CSS
 
@@ -22,7 +22,7 @@ Backend/Database: Supabase (PostgreSQL)
 
 Icons: Lucide-React
 
-🚀 Getting Started
+**🚀 Getting Started**
 1. Clone & Install
 
 Bash
