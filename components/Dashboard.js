@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, use } from 'react';
 import { Search, Zap, X, CheckCircle2, User, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import Graph from '@/components/Graph';
@@ -17,6 +17,7 @@ export default function Dashboard({ initialData }) {
   const [myId, setMyId] = useState(null);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [joined, setJoined] = useState(false);
 
   const [formData, setFormData] = useState({
     full_name: '',
@@ -36,6 +37,13 @@ export default function Dashboard({ initialData }) {
         setMyId(session.user.id);
         setLoading(false); // Only show the dashboard if logged in
       }
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profile) setJoined(true);
     };
     checkAuth();
     // Also listen for auth changes (like signing out)
@@ -195,9 +203,10 @@ export default function Dashboard({ initialData }) {
 
           <button
             onClick={() => setIsModalOpen(true)}
+            disabled={joined}
             className="bg-white text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-slate-200 transition-all active:scale-95"
           >
-            Join Network
+            {joined ? 'Already Joined' : 'Join Network'}
           </button>
         </div>
       </nav>
