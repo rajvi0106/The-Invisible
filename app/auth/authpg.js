@@ -39,6 +39,12 @@ export default function AuthPage() {
   };
 
   return (
+    <>
+    <nav className="w-full bg-[#020617] border-b border-slate-800/60 p-5 flex justify-center items-center">
+      <div className="flex items-center gap-2">
+        <span className="text-6xl font-bold tracking-tighter uppercase text-white">The Invisible</span>
+      </div>
+    </nav>
     <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
         <div className="flex flex-col items-center mb-8">
@@ -100,5 +106,6 @@ export default function AuthPage() {
         </button>
       </div>
     </div>
+    </>
   );
 }
