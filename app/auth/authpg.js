@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-import { Zap, Mail, Lock, User } from 'lucide-react';
+import { Handshake, Mail, Lock, User } from 'lucide-react';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -49,7 +49,7 @@ export default function AuthPage() {
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
         <div className="flex flex-col items-center mb-8">
           <div className="bg-blue-600 p-3 rounded-2xl mb-4">
-            <Zap className="text-white" size={32} />
+            <Handshake className="text-white" size={32} />
           </div>
           <h1 className="text-2xl font-bold text-white tracking-tight">
             {isLogin ? 'Welcome Back' : 'Create Account'}

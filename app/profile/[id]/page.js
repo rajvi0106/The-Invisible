@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect,use } from 'react';
+import { useState, useEffect,use ,router} from 'react';
 import { supabase } from '@/lib/supabase';
 import { Plus, Trash2, Award, ArrowLeft, User, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
@@ -55,6 +55,7 @@ export default function UserProfile({ params }) {
     if (!error) {
       setUserData({ ...userData, skills_with_levels: updatedSkills });
       setNewSkill({ name: '', level: 'Beginner' });
+      router.refresh();
     }
     setIsUpdating(false);
   };

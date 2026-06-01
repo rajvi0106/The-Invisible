@@ -9,27 +9,27 @@ export default async function Home() {
   const { data: dbProfiles } = await supabase.from('profiles').select('*');
   
   // 2. Mock Data for the Demo
-  const mockNodes = [
-    { 
-      id: 'm1', 
-      full_name: 'mahi Mehta', 
-      roll_no: '22BCE001', 
-      skills: ['React', 'Next.js', 'Tailwind'], 
-      bio: 'Building the future of web apps.',
-      batch_year: '2026'
-    },
-    { 
-      id: 'm2', 
-      full_name: 'Sara Khan', 
-      roll_no: '22BCE045', 
-      skills: ['Figma', 'UI Design'], 
-      bio: 'Pixel perfect designs.',
-      batch_year: '2026'
-    }
-  ];
+  // const mockNodes = [
+  //   { 
+  //     id: 'm1', 
+  //     full_name: 'mahi Mehta', 
+  //     roll_no: '22BCE001', 
+  //     skills: ['React', 'Next.js', 'Tailwind'], 
+  //     bio: 'Building the future of web apps.',
+  //     batch_year: '2026'
+  //   },
+  //   { 
+  //     id: 'm2', 
+  //     full_name: 'Sara Khan', 
+  //     roll_no: '22BCE045', 
+  //     skills: ['Figma', 'UI Design'], 
+  //     bio: 'Pixel perfect designs.',
+  //     batch_year: '2026'
+  //   }
+  // ];
 
   // 3. Combine Real + Mock Data
-  const combinedProfiles = [...(dbProfiles || []), ...mockNodes];
+  const combinedProfiles = dbProfiles || [];
 
   // 4. Format the nodes
   const nodes = combinedProfiles.map(p => {
@@ -57,8 +57,8 @@ export default async function Home() {
     const links = [];
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
-        const skillsA = nodes[i].skills || [];
-        const skillsB = nodes[j].skills || [];
+        const skillsA = (nodes[i].skills || []).map(s => s.toLowerCase());
+        const skillsB = (nodes[j].skills || []).map(s => s.toLowerCase());
         const hasSharedSkill = skillsA.some(s => skillsB.includes(s));
         if (hasSharedSkill) {
           links.push({ source: nodes[i].id, target: nodes[j].id });

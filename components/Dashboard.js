@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo, useEffect, use } from 'react';
-import { Search, Zap, X, CheckCircle2, User, LogOut } from 'lucide-react';
+import { Search, Handshake, X, CheckCircle2, User, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import Graph from '@/components/Graph';
 import Link from 'next/link';
@@ -36,14 +36,15 @@ export default function Dashboard({ initialData }) {
       } else {
         setMyId(session.user.id);
         setLoading(false); // Only show the dashboard if logged in
-      }
-      const { data: profile } = await supabase
+        const { data: profile } = await supabase
         .from('profiles')
         .select('id')
         .eq('id', session.user.id)
         .single();
 
-      if (profile) setJoined(true);
+        if (profile) setJoined(true);
+      }
+      
     };
     checkAuth();
     // Also listen for auth changes (like signing out)
@@ -125,8 +126,8 @@ export default function Dashboard({ initialData }) {
         const links = [];
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
-            const skillsA = nodes[i].skills || [];
-            const skillsB = nodes[j].skills || [];
+            const skillsA = (nodes[i].skills || []).map(s => s.toLowerCase());
+            const skillsB = (nodes[j].skills || []).map(s => s.toLowerCase());
             const hasSharedSkill = skillsA.some(s => skillsB.includes(s));
             if (hasSharedSkill) {
               links.push({ source: nodes[i].id, target: nodes[j].id });
@@ -166,6 +167,7 @@ export default function Dashboard({ initialData }) {
       if (newSkill && !formData.skills.includes(newSkill)) {
         setFormData({ ...formData, skills: [...formData.skills, newSkill] });
         setSkillInput("");
+        
       }
     }
   };
@@ -180,7 +182,7 @@ export default function Dashboard({ initialData }) {
       {/* NAVIGATION */}
       <nav className="p-5 flex justify-between items-center border-b border-slate-800/60 bg-slate-900/40 backdrop-blur-xl sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <Zap size={20} className="text-blue-500" fill="currentColor" />
+          <Handshake size={20} className="text-blue-400" fill="currentColor" />
           <span className="text-xl font-bold tracking-tighter uppercase">The Invisible</span>
         </div>
 
