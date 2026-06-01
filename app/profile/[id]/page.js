@@ -1,12 +1,14 @@
 "use client";
-import { useState, useEffect,use ,router} from 'react';
+import { useState, useEffect,use} from 'react';
 import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 import { Plus, Trash2, Award, ArrowLeft, User, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function UserProfile({ params }) {
   const unwrappedParams = use(params);
   const userId = unwrappedParams.id;
+  const router = useRouter();
   const [userData, setUserData] = useState(null);
   const [newSkill, setNewSkill] = useState({ name: '', level: 'Beginner' });
   const [isUpdating, setIsUpdating] = useState(false);
@@ -113,7 +115,7 @@ export default function UserProfile({ params }) {
                 <div className="w-full h-px bg-slate-800 my-8" />
                 
                 <div className="text-left w-full">
-                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">Biography</p>
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">Bio</p>
                   <p className="text-slate-300 text-sm leading-relaxed italic">
                     {userData.bio || "No bio provided yet."}
                   </p>
@@ -149,7 +151,7 @@ export default function UserProfile({ params }) {
                 >
                   <option>Beginner</option>
                   <option>Intermediate</option>
-                  <option>Hard</option>
+                  <option>Advanced</option>
                 </select>
                 <button 
                   onClick={handleAddSkill}
@@ -169,7 +171,7 @@ export default function UserProfile({ params }) {
                         <span className="text-lg font-bold capitalize text-slate-100">{name}</span>
                         <div className="flex items-center gap-2 mt-1">
                           <span className={`text-[10px] font-black uppercase tracking-widest ${
-                            level === 'Hard' ? 'text-red-400' : level === 'Intermediate' ? 'text-yellow-400' : 'text-green-400'
+                            level === 'Advanced' ? 'text-red-400' : level === 'Intermediate' ? 'text-yellow-400' : 'text-green-400'
                           }`}>
                             {level}
                           </span>
@@ -180,7 +182,7 @@ export default function UserProfile({ params }) {
                         {/* Visual Progress Bar */}
                         <div className="w-24 md:w-40 h-1.5 bg-slate-800 rounded-full overflow-hidden hidden sm:block">
                           <div className={`h-full transition-all duration-700 ${
-                            level === 'Hard' ? 'w-full bg-red-500' : 
+                            level === 'Advanced' ? 'w-full bg-red-500' : 
                             level === 'Intermediate' ? 'w-2/3 bg-yellow-500' : 
                             'w-1/3 bg-green-500'
                           }`} />
